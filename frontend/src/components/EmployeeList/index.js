@@ -36,15 +36,15 @@ class EmployeeList extends Component {
           <Header style={headerStyle}> Employee Management System</Header>
           <Content>
             <Row>
-              <Col span={6} />
-              <Col span={12}>
+              <Col span={2} />
+              <Col span={20}>
                 <ShowEmployees
                   employeeList={this.props.employeeList}
                   addEmployee={this.props.addEmployee}
                 />
                 >
               </Col>
-              <Col span={6} />
+              <Col span={2} />
             </Row>
           </Content>
           {/* <Footer style={footerStyle}>@Copy Right Reserved by Daniel</Footer> */}

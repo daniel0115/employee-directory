@@ -93,14 +93,21 @@ const getDirectReporters = (req, res) => {
 //4.add one emploee
 const addNewEmployee = (req, res) => {
   // When this staff is not assigned with a manager
-  console.log(`req.body.manager: ${req.body.manager}`);
+  // console.log(`req.body.manager: ${req.body.manager}`);
+  // console.log(req.body.manager === null);
+  console.log("req.file", req.file);
+  console.log("req.body", req.body);
+  const obj = req.body;
+  obj.avatar = req.file.filename;
+  //
 
-  console.log(req.body.manager === null);
+  console.log(req.body.manager);
+  // const obj = { req.body, avatar: req.file.filename };
   if (!req.body.manager) {
     // console.log("it is posting");
     //Employee.create(req.body, (err, employee) =>
     //创建一个新的employee，req.body-> 把post到数据库里的信息赋给employee
-    Employee.create(req.body, (err, employee) => {
+    Employee.create(obj, (err, employee) => {
       if (err) {
         res.status(500).json({ error: err });
       } else {
@@ -112,7 +119,7 @@ const addNewEmployee = (req, res) => {
     });
   } else {
     // When this employee is assigned with a manager
-    Employee.create(req.body, (err, employee) => {
+    Employee.create(obj, (err, employee) => {
       if (err) {
         res.status(500).json({ error: err });
       } else {
@@ -265,6 +272,7 @@ const editEmployee = (req, res) => {
 //     if (err) res.status(500).json({ error: err });
 //     else {
 //       if (employee) {
+//         console.log("edit", req.body);
 //         // Avoid management circle
 //         let index = employee.directReports.indexOf(req.body.manager); // check if staff's direct reports has req.body.manager
 //         // console.log(`index: ${index}`)

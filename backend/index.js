@@ -25,7 +25,7 @@ app.use(BodyParser.json());
 //urlencoded
 app.use(BodyParser.urlencoded({ extended: true }));
 //设置express的静态文件在public文件夹下
-app.use(express.static("public"));
+app.use(express.static("./public"));
 //必须添加api来连接 employee router
 app.use("/api", employee);
 

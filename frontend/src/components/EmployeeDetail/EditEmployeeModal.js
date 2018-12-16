@@ -276,7 +276,7 @@ class EditEmployeeModal extends Component {
 
           {/* <FormItem {...formItemLayout} label="Manager">
             {getFieldDecorator("manager", {
-              initialValue: "None",
+              initialValue: this.props.employeeDetail.managersName,
               rules: [
                 {
                   required: false,

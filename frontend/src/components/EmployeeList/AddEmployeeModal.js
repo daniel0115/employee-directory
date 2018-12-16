@@ -7,7 +7,7 @@
 import React, { Component } from "react";
 import { Modal } from "antd";
 
-import { Form, Input, DatePicker, Select, Button } from "antd";
+import { Form, Input, DatePicker, Select, Button, Upload, Icon } from "antd";
 
 const FormItem = Form.Item;
 // const Option = Select.Option;
@@ -17,6 +17,7 @@ class AddEmployeeModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      avatarNum: 0,
       confirmDirty: false,
       autoCompleteResult: []
     };
@@ -27,13 +28,37 @@ class AddEmployeeModal extends Component {
   //   this.props.employeeList.manager();
   // };
 
+  //add pic
+  normFile = e => {
+    console.log("Upload event:", e);
+    this.setState({
+      avatarNum: e.fileList.length
+    });
+    if (Array.isArray(e)) {
+      return e;
+    }
+    return e && e.fileList;
+  };
+
   handleSubmit = e => {
+    const formData = new FormData();
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         console.log("Received values of form: ", values);
+        formData.append("name", values.name);
+        formData.append("title", values.title);
+        formData.append("sex", values.sex);
+        formData.append("start_date", values.start_date);
+        formData.append("email", values.email);
+        formData.append("officePhone", values.officePhone);
+        formData.append("cellPhone", values.cellPhone);
+        formData.append("SMS", values.SMS);
+        formData.append("manager", values.manager);
+        formData.append("avatar", values.avatar[0].originFileObj);
+
         this.props.handleCancel();
-        this.props.addEmployee(values);
+        this.props.addEmployee(formData);
       }
     });
   };
@@ -121,7 +146,7 @@ class AddEmployeeModal extends Component {
         onOk={this.props.handleOk}
         onCancel={this.props.handleCancel}
       >
-        <Form onSubmit={this.handleSubmit}>
+        <Form encType="multipart/form-data" onSubmit={this.handleSubmit}>
           <FormItem {...formItemLayout} label="Name">
             {getFieldDecorator("name", {
               rules: [
@@ -218,6 +243,25 @@ class AddEmployeeModal extends Component {
                 }
               ]
             })(<Input addonBefore={"+1"} style={{ width: "100%" }} />)}
+          </FormItem>
+
+          <FormItem {...formItemLayout} label="Avatar">
+            {getFieldDecorator("avatar", {
+              valuePropName: "fileList",
+              getValueFromEvent: this.normFile
+            })(
+              <Upload
+                name="avatar"
+                listType="picture"
+                beforeUpload={() => {
+                  return false;
+                }}
+              >
+                <Button disabled={this.state.avatarNum === 1}>
+                  <Icon type="upload" /> Click to upload
+                </Button>
+              </Upload>
+            )}
           </FormItem>
 
           <FormItem {...formItemLayout} label="Manager">

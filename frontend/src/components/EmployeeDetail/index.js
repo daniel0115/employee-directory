@@ -170,9 +170,13 @@ class EmployeeDetail extends Component {
           ) : (
             <List>
               <ListItem>
-                <Avatar>
-                  <ImageIcon />
-                </Avatar>
+                <Avatar
+                  alt=""
+                  style={{ with: "40px", height: "40px" }}
+                  src={`http://localhost:5000/uploads/${
+                    this.props.employeeDetail.detail.avatar
+                  }`}
+                />
 
                 <ListItemSecondaryAction>
                   <IconButton
@@ -199,12 +203,12 @@ class EmployeeDetail extends Component {
                 />
               </ListItem>
 
-              <ListItem>
+              {/* <ListItem>
                 <ListItemText
                   primary="StartDate"
                   secondary={employeeDetail.detail.startDate}
                 />
-              </ListItem>
+              </ListItem> */}
 
               <ListItem onClick={this.goToManager}>
                 <ListItemText

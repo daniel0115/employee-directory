@@ -2,6 +2,8 @@ import axios from "axios";
 //import getEmployeeDetail action
 import { getEmployeeDetail } from "./employeeDetail";
 
+import { getEmployees } from "./employees";
+
 function editEmployeeStart() {
   return {
     type: "REQUEST_EDITEMPLOYEE_START"
@@ -35,6 +37,7 @@ export function editEmployee(id, newEmployee) {
       .then(response => {
         dispatch(editEmployeeSuccess(response.data));
         dispatch(getEmployeeDetail(id));
+        dispatch(getEmployees());
 
         console.log(response.data);
       })

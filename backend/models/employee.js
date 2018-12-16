@@ -7,7 +7,7 @@ const Schema = mongoose.Schema;
 const EmployeeSchema = new Schema({
   name: { type: String, required: true },
   title: { type: String, default: null },
-  avatar_url: { type: String, default: null },
+  avatar: { type: String, default: null },
   sex: { type: String, default: null },
   startDate: { type: Date, default: Date.now },
   email: { type: String, default: null },
